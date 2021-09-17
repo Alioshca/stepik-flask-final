@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+{% block title %}Аренда автомобилей{% endblock %}
+
+{% block main %}
+<div class="container-fluid">
+    <h1 align="center">Аренда автомобилей</h1>
+</div>
+{% endblock %}
+
+{% block content %}
+
+<div class="container border border-1 rounded pt-2 pb-2 mt-3" style="width:40rem;">
+  <form action="" method="post" novalidate>
+    <div class="container-fluid">
+      <p class="fw-normal mb-0">Тип КПП</p>
+      <ul class="list-group">
+        {% for field in form.transmission %}
+          <li class="list-group-item">
+          {{ field(class_='form-check-input') }}
+          {{ field.label(class_='form-check-label') }}
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+    <div class="container-fluid">
+      <p class="fw-normal mb-0 mt-2">Минимальный объём двигателя</p>
+      {{ form.volume(class_='form-control') }}
+    </div>
+    <div class="container-fluid">
+      <div class="container-fluid p-0 mb-0 mt-2">
+        {{ form.conditioner(class_='form-check-input') }}
+        <label class="form-check-label ms-1" for="volume">Наличие кондиционера</label>
+      </div>
+    </div>
+    <div class="container-fluid">
+      <div class="container-fluid p-0 mb-0 mt-2">
+        {{ form.submit(class_='btn btn-success btn-sm') }}
+      </div>
+    </div>
+  </form>
+</div>
+
+<div class="container-fluid" style="width:40rem;">
+  <h2 align="center" class="m-0 pt-5">Автомобили в наличии</h2>
+</div>
+
+{% for car in cars %}
+  <div class="container p-4">
+    <div class="row justify-content-md-center">
+      <div class="card" style="width: 40rem;">
+        <a href="/cars/{{ car.link_name }}">
+          <img src="{{ car.image_path }}" class="card-img-top" alt="{{ car.name }}">
+        </a>
+        <div class="card-body">
+          <h5 class="card-title">{{ car.name }}</h5>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endfor %}
+
+{% endblock %}

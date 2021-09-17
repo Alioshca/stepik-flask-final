@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ car.name }}{% endblock %}
+
+{% block main %}
+<div class="container-fluid">
+    <h1 align="center">Карточка автомобиля</h1>
+</div>
+{% endblock %}
+
+{% block content %}
+  <div class="container p-2">
+    <div class="row justify-content-md-center">
+      <div class="card" style="width: 40rem;">
+        <img src="/{{ car.image_path }}" class="card-img-top" alt="{{ car.name }}">
+        <div class="card-body">
+          <div class="row">
+            <div class="col">
+              <h5 class="card-title">Название автомобиля:</h5>
+              <h6 class="card-subtitle pt-2 pb-2">Тип КПП</h6>
+              <h6 class="card-subtitle pt-2 pb-2">Объём двигателя</h6>
+              <h6 class="card-subtitle pt-2 pb-2">Наличие кондиционера</h6>
+            </div>
+            <div class="col">
+              <h5 class="card-title">{{ car.name }}</h5>
+              <h6 class="card-subtitle pt-2 pb-2">{{ car.transmission }}</h6>
+              <h6 class="card-subtitle pt-2 pb-2">{{ car.volume }}</h6>
+              <h6 class="card-subtitle pt-2 pb-2">{{ car.is_conditioner }}</h6>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        {% for category, message in messages %}
+          {{ message }}
+        {% endfor %}
+    {% endif %}
+{% endwith %}
+
+<div class="container border border-1 rounded pt-2 pb-2 mt-3" style="width:40rem;">
+  <form action="" method="post" novalidate>
+    <div class="container-fluid">
+      <p class="fw-normal mb-0 mt-2">Имя</p>
+      {{ form.name(class_='form-control') }}
+    </div>
+    <div class="container-fluid">
+      <p class="fw-normal mb-0 mt-2">Фамилия</p>
+      {{ form.last_name(class_='form-control') }}
+    </div>
+    <div class="container-fluid">
+      <p class="fw-normal mb-0 mt-2">Телефон</p>
+      {{ form.telephone(class_='form-control') }}
+    </div>
+    <div class="container-fluid">
+      <p class="fw-normal mb-0 mt-2">Дата аренды автомобиля</p>
+      {{ form.order_date(class_='form-control') }}
+    </div>
+    <div class="container-fluid">
+      <div class="container-fluid p-0 mb-0 mt-2">
+        {{ form.submit(class_='btn btn-success btn-sm') }}
+      </div>
+    </div>
+  </form>
+</div>
+{% endblock %}
